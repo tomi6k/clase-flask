@@ -15,20 +15,20 @@ app.secret_key = 'mysecretkey'
 def Index():
     return render_template('index.html')
 
-@app.route('/success')
+@app.route('/success' , methods=['GET', 'POST'])
 def success():
-    return render_template('success.html')
+    return render_template('succes.html')
 
-@app.route('/consulta')
-def consulta():
+@app.route('/consulta' , methods=['GET', 'POST'])
+def consulta(): 
     if request.method == 'POST':
         nombre = request.form['nombre']
         email = request.form['email']
-        contraseña = request.form['password']
+        contrasena = request.form['password']
         cursor = mysql.connection.cursor()
-        cursor.execute('INSERT INTO usuarios (nombre, email, contraseña) VALUES (%s, %s, %s)', (nombre, email, contraseña))
+        cursor.execute('INSERT INTO usuarios (nombre, email, contrasena) VALUES (%s, %s, %s)', (nombre, email, contrasena))
         mysql.connection.commit()
-        return redirect(url_for('/success'))
+        return render_template('succes.html')
 
 
 
